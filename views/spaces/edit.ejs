@@ -1,0 +1,83 @@
+<% layout('layouts/boilerplate') %> 
+
+<div class="row">
+
+    <h1 class="text-center">Edit Space</h1>
+
+    <div class="col-md-6 offset-md-3">
+        <div class="card shadow mb-3">
+            <div class="card-body">
+                <form action="/spaces/<%= space._id %>?_method=PUT" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
+
+                    <div class="mb-3">
+                        <label class="form-label" for="title">Title</label>
+                        <input class="form-control" type="text" id="title" name="space[title]" value="<%= space.title %>" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="location">Location</label>
+                        <input class = "form-control" type="text" id="location" name="space[location]" value ="<%= space.location %>" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Upload image(s)</label>
+                        <input class="form-control" type="file" id="image" name="image" multiple>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="area">Area</label>
+                        <div class="input-group">
+                            <span class="input-group-text" id="area-label">&#13217;</span>
+                            <input value ="<%= space.area %>" type="text" id="area" class="form-control" placeholder="" aria-label="Username" aria-describedby="area-label" name="space[area]" required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="price">Space Price</label>
+                        <div class="input-group">
+                            <span class="input-group-text" id="price-label">INR</span>
+                            <input type="text" id="price" class="form-control" placeholder="" aria-label="Username" aria-describedby="price-label" name="space[price]" value="<%= space.price %>" required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="description">Description</label>
+                        <textarea class = "form-control" type="text-area" id="description" name="space[description]" required><%= space.description %></textarea>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <% space.images.forEach(function(img, i) { %>
+                            <img src="<%= img.thumbnail %>" class="img-thumbnail" alt="">
+                            <div class="form-check-inline">
+                                <input type="checkbox" name="deleteImages[]" value="<%= img.filename %>" id="img-<%= i %>">
+                            </div>
+                            <label for="img-<%= i %>">Delete</label>
+                        <% }) %>  
+                    </div>
+
+                    <div class="mb-3">
+                        <button class="btn btn-warning w-100">Save Changes</button>
+                    </div>
+
+                </form>
+                <a class="btn btn-primary w-100" href="/spaces">Cancel</a>
+            </div>
+        </div>
+    </div>
+    
+</div>
